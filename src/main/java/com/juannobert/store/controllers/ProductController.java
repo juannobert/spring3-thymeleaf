@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -48,8 +49,14 @@ public class ProductController {
 		service.insert(form);
 		attrs.addFlashAttribute("alert", new FlashMessage("alert-success","Produto inserido com sucesso"));
 		return "redirect:/products";
+	}
+	
+	@GetMapping("/delete/{id}")
+	public String delete(@PathVariable Long id,RedirectAttributes attrs) {
+		service.delete(id);
 		
-		
+		attrs.addFlashAttribute("alert", new FlashMessage("alert-success","Produto excluido com sucesso"));
+		return "redirect:/products";
 	}
 	
 }

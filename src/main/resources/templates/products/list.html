@@ -35,22 +35,22 @@
                             <td th:text="${product.name}" class="col-3"></td>
                             <td th:text="${product.price}" class="col-2"></td>
                             <td class="col-1">
-                                <button class="btn btn-warning">
+                                <a class="btn btn-warning">
                                     <i class="bi bi-info"></i>
                                     Detalhes
-                                </button>
+                                </a>
                             </td>
                             <td class="col-1">
-                                <button class="btn btn-info">
+                                <a class="btn btn-info">
                                     <i class="bi bi-person"></i>
                                     Alterar
-                                </button>
+                                </a>
                             </td>
                             <td class="col-1">
-                                <button class="btn btn-danger">
+                                <a th:href="@{/products/delete/{id} (id=${product.id})}"class="btn btn-danger">
                                     <i class="bi bi-trash"></i>
                                     Excluir
-                                </button>
+                                </a>
                             </td>
                         </tr>
                     </tbody>

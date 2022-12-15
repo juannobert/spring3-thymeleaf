@@ -34,4 +34,9 @@ public class ProductService {
 		return repository.save(entity);
 	}
 	
+	public void delete(Long id) {
+		Product entity = repository.getReferenceById(id);
+		repository.delete(entity);
+	}
+	
 }
