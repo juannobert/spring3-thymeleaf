@@ -8,9 +8,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.juannobert.store.dtos.requests.ProductRequest;
 import com.juannobert.store.services.ProductService;
+import com.juannobert.store.utils.FlashMessage;
 
 import jakarta.validation.Valid;
 
@@ -38,12 +40,13 @@ public class ProductController {
 	}
 	
 	@PostMapping("/insert")
-	public String insert(@Valid @ModelAttribute("form") ProductRequest form,BindingResult result) {
+	public String insert(@Valid @ModelAttribute("form") ProductRequest form,BindingResult result,RedirectAttributes attrs) {
 		if(result.hasErrors()) {
 			return "products/form";
 		}
 		
 		service.insert(form);
+		attrs.addFlashAttribute("alert", new FlashMessage("alert-success","Produto inserido com sucesso"));
 		return "redirect:/products";
 		
 		
