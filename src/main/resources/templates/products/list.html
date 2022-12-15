@@ -11,9 +11,14 @@
 </head>
 <body>
     <div class="container">
+        <div class="row mt-4" style="text-align: end;">
+            <div class="col-12">
+                <a th:href="@{/products/insert}" class="btn btn-primary">Cadastrar novo produto</a>
+            </div>
+        </div>
         <div class="row">
             <div class="col-12">
-                <table class="table table-hover table-responsive m-4">
+                <table class="table table-hover table-responsive">
                     <thead>
                         <th scope="col">ID</th>
                         <th scope="col">Nome</th>

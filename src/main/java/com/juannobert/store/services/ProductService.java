@@ -4,9 +4,12 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.juannobert.store.dtos.requests.ProductRequest;
 import com.juannobert.store.dtos.response.ProductResponse;
 import com.juannobert.store.mappers.ProductMapper;
+import com.juannobert.store.models.Product;
 import com.juannobert.store.repositories.ProductRepository;
 
 @Service
@@ -23,6 +26,12 @@ public class ProductService {
 				.stream()
 				.map(mapper::toResponse)
 				.toList();
+	}
+	
+	@Transactional
+	public Product insert(ProductRequest request) {
+		Product entity = mapper.toModel(request);
+		return repository.save(entity);
 	}
 	
 }
