@@ -15,6 +15,8 @@ public interface ProductMapper {
 	
 	ProductResponse toResponse(Product model);
 	
+	ProductRequest toRequest(Product model);
+	
 	
 	Product toModel(ProductRequest request);
 
