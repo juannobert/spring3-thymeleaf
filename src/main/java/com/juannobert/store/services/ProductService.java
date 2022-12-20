@@ -6,12 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.juannobert.store.ProductNotFoundException;
 import com.juannobert.store.dtos.requests.ProductRequest;
 import com.juannobert.store.dtos.response.ProductResponse;
 import com.juannobert.store.mappers.ProductMapper;
 import com.juannobert.store.models.Product;
 import com.juannobert.store.repositories.ProductRepository;
+import com.juannobert.store.services.exceptions.ProductNotFoundException;
 
 @Service
 public class ProductService {

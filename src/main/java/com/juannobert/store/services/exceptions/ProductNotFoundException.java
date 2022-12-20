@@ -1,4 +1,4 @@
-package com.juannobert.store;
+package com.juannobert.store.services.exceptions;
 
 public class ProductNotFoundException extends RuntimeException{
 
