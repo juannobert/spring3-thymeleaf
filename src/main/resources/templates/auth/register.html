@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <title>Register</title>
+</head>
+<body>
+    <div class="container col-11 col-md-9" id="form-container">
+        <div class="row gx-5 align-items-center">
+            <div class="col-md-6">
+                <h2>Realize o seu cadastro</h2>
+                <form th:object="${form}" method="POST">
+                    <div class="form-floating mb-3">
+                        <input type="text" th:field="*{name}" id="name" class="form-control"
+                        placeholder="Digite o seu nome">
+                        <label for="name" class="form-label">Digite o seu nome</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="email" th:field="*{email}" id="email" class="form-control"
+                        placeholder="Digite o seu email">
+                        <label for="email" class="form-label">Digite o seu email</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="password" th:field="*{password}" id="password" class="form-control"
+                        placeholder="Digite o seu nome">
+                        <label for="password" class="form-label">Digite a sua senha</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="password" th:field="*{passwordConfirmation}" id="passwordConfimation" class="form-control"
+                        placeholder="Digite o seu nome">
+                        <label for="passwordConfimation" class="form-label">Digite novamente sua senha</label>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-check mb-2">
+                            <input type="checkbox" name="termos" id="termos">
+                            <label class="form-check-label">Lembrar-me</label>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <button class="btn btn-primary">Cadastrar</button>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-6">
+                <img src="img/hello.svg"  class="img-fluid" alt="">
+                <div class="col-12"  id="link-container">
+                    <a href="login.html">Já tenho uma conta</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

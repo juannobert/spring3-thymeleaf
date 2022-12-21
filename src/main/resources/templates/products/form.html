@@ -12,7 +12,7 @@
 <body>
     <div class="container">
         <div class="row m-4">
-            <form th:object="${form}" method="POST">
+            <form th:object="${form}" method="POST" >
                 <div class="col-md-10 col-sm-12 mb-3">
                     <label for="name" class="form-label">Digite o nome do produto</label>
                     <input type="text" class="form-control" th:field="*{name}">
