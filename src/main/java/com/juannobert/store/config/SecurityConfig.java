@@ -7,18 +7,15 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 import com.juannobert.store.models.enums.UserType;
 
 @Configuration
 public class SecurityConfig {
-	
-	@Autowired
-	private PasswordEncoder passwordEncoder;
 	
 	
 	@Autowired
@@ -29,7 +26,6 @@ public class SecurityConfig {
 	  throws Exception {
 	    return http.getSharedObject(AuthenticationManagerBuilder.class)
 	      .userDetailsService(userDetailsService)
-	      .passwordEncoder(passwordEncoder)
 	      .and()
 	      .build();
 	}
@@ -37,16 +33,14 @@ public class SecurityConfig {
 	@Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests()
-        	.requestMatchers(HttpMethod.POST,"/products/insert" ).hasAnyRole(UserType.ADMIN.toString())
-        	.requestMatchers("/auth/register").permitAll()
-        	.anyRequest().authenticated()
+        	
+        	.anyRequest().permitAll()
         	
         	.and()
         	.formLogin()
         	.usernameParameter("email")
         	.passwordParameter("password")
-        	.loginPage("/auth/login")
-        	.defaultSuccessUrl("/products")
+        	.defaultSuccessUrl("/products",true)
         	.permitAll();
             
         return http.build();
@@ -54,7 +48,7 @@ public class SecurityConfig {
 	
 	@Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
-        return (web) -> web.ignoring().requestMatchers("/resources/**");
+        return (web) -> web.ignoring().requestMatchers("/resources/**","/h2-console/**");
     }
 
 	
