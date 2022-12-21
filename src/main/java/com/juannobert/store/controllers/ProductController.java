@@ -59,4 +59,24 @@ public class ProductController {
 		return "redirect:/products";
 	}
 	
+	@GetMapping("/update/{id}")
+	public ModelAndView updateForm(@PathVariable Long id) {
+		ModelAndView mv = new ModelAndView("products/form");
+		mv.addObject("form", service.findById(id));
+		
+		return mv;
+	}
+	
+	@PostMapping("/update/{id}")
+	public String update(@PathVariable Long id,@Valid @ModelAttribute("form") ProductRequest form,BindingResult result,RedirectAttributes attrs) {
+		if(result.hasErrors()) {
+			return "products/form";
+		}
+		
+		service.update(id, form);
+		attrs.addFlashAttribute("alert", new FlashMessage("alert-success","Produto atualizado com sucesso"));
+		return "redirect:/products";
+	}
+	
+	
 }

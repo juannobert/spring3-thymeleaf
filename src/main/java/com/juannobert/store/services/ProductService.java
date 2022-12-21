@@ -11,6 +11,7 @@ import com.juannobert.store.dtos.response.ProductResponse;
 import com.juannobert.store.mappers.ProductMapper;
 import com.juannobert.store.models.Product;
 import com.juannobert.store.repositories.ProductRepository;
+import com.juannobert.store.services.exceptions.ProductNotFoundException;
 
 @Service
 public class ProductService {
@@ -37,6 +38,22 @@ public class ProductService {
 	public void delete(Long id) {
 		Product entity = repository.getReferenceById(id);
 		repository.delete(entity);
+	}
+	
+	public ProductRequest findById(Long id) {
+		return repository.findById(id)
+				.map(mapper::toRequest)
+				.orElseThrow(() -> new ProductNotFoundException("Product not Found"));
+	}
+	
+	
+	public Product update(Long id,ProductRequest request) {
+		Product entity = mapper.toModel(request);
+		entity.setId(id);
+		
+		System.out.println(entity);
+		
+		return repository.save(entity);
 	}
 	
 }
