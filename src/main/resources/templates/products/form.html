@@ -18,24 +18,20 @@
                     <input type="text" class="form-control" th:field="*{name}">
                     <ul>
                     	<li class="text-danger" th:each="erro : ${#fields.errors('name')}" th:text="${erro}"></li>
-<<<<<<< HEAD
                    </ul>
-=======
                     </ul>
->>>>>>> 7e2ed0c93934ec1c4a185dbbd8e4945654352e5c
                 </div>
                 <div class="col-md-10 col-sm-12 mb-3">
                     <label for="name" class="form-label">Digite o preço do produto</label>
                     <input type="number" class="form-control" th:field="*{price}">
-<<<<<<< HEAD
                       <ul>
                     	<li class="text-danger" th:each="erro : ${#fields.errors('price')}" th:text="${erro}"></li>
                    </ul>
-=======
+
                     <ul>
                     	<li class="text-danger" th:each="erro : ${#fields.errors('price')}" th:text="${erro}"></li>
                     </ul>
->>>>>>> 7e2ed0c93934ec1c4a185dbbd8e4945654352e5c
+
                 </div>
                 <div class="col-12">
                     <button type="submit" class="btn btn-primary">Cadastrar</button>

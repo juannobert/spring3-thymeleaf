@@ -8,5 +8,5 @@ import com.juannobert.store.models.User;
 
 public interface UserRepository extends JpaRepository<User,Long>{
 	
-	Optional<User> findByEmail();
+	Optional<User> findByEmail(String email);
 }
