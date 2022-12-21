@@ -3,16 +3,13 @@ package com.juannobert.store.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-
-import com.juannobert.store.models.enums.UserType;
 
 @Configuration
 public class SecurityConfig {
@@ -21,11 +18,15 @@ public class SecurityConfig {
 	@Autowired
 	private UserDetailsService userDetailsService;
 	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+	
 	@Bean
-	public AuthenticationManager authenticationManager(HttpSecurity http) 
+	 AuthenticationManager authenticationManager(HttpSecurity http) 
 	  throws Exception {
 	    return http.getSharedObject(AuthenticationManagerBuilder.class)
 	      .userDetailsService(userDetailsService)
+	      .passwordEncoder(passwordEncoder)
 	      .and()
 	      .build();
 	}
@@ -34,20 +35,25 @@ public class SecurityConfig {
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests()
         	
-        	.anyRequest().permitAll()
+        	.requestMatchers("/auth/register").permitAll()
+        	.anyRequest().authenticated()
+        	
         	
         	.and()
         	.formLogin()
+        	.loginPage("/auth/login")
         	.usernameParameter("email")
         	.passwordParameter("password")
         	.defaultSuccessUrl("/products",true)
-        	.permitAll();
+        	.permitAll()
+        	
+        	.and().csrf().disable();
             
         return http.build();
     }
 	
 	@Bean
-    public WebSecurityCustomizer webSecurityCustomizer() {
+    WebSecurityCustomizer webSecurityCustomizer() {
         return (web) -> web.ignoring().requestMatchers("/resources/**","/h2-console/**");
     }
 

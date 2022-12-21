@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.juannobert.store.dtos.requests.UserRequest;
@@ -22,10 +23,19 @@ public class UserService implements UserDetailsService{
 	
 	@Autowired
 	private UserMapper mapper;
+	
+
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+	
 
 	public User insert(UserRequest request) {
 		User model = mapper.toModel(request);
 		model.setUserType(UserType.ADMIN);
+		
+		String password = request.getPassword();
+		model.setPassword(passwordEncoder.encode(password));
+		
 		model = repository.save(model);
 		
 		return model;
