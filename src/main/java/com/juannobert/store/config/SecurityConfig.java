@@ -11,6 +11,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
+import com.juannobert.store.models.enums.UserType;
+
 @Configuration
 public class SecurityConfig {
 	
@@ -20,6 +22,12 @@ public class SecurityConfig {
 	
 	@Autowired
 	private PasswordEncoder passwordEncoder;
+	
+	private final String[] ADMIN = {"/products/**","/auth/register/**"};
+	
+	private final String[] PUBLIC = {"auth/register"};
+	
+	private final String[] ADMIN_OR_CLIENT = {"/products","/products/details/**"};
 	
 	@Bean
 	 AuthenticationManager authenticationManager(HttpSecurity http) 
@@ -35,8 +43,9 @@ public class SecurityConfig {
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests()
         	
-        	.requestMatchers("/auth/register").permitAll()
-        	.anyRequest().authenticated()
+        	.requestMatchers(PUBLIC).permitAll()
+        	.requestMatchers(ADMIN_OR_CLIENT).authenticated()
+        	.requestMatchers(ADMIN).hasAnyAuthority(UserType.ADMIN.toString())
         	
         	
         	.and()

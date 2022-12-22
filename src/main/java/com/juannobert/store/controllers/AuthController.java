@@ -39,7 +39,24 @@ public class AuthController {
 		if(result.hasErrors()) {
 			return "auth/register";
 		}
-		service.insert(request);
+		service.insert(request,false);
 		return "redirect:/auth/login";
+	}
+	
+	@GetMapping("/register/admin")
+	public ModelAndView registerAdmin() {
+		ModelAndView mv = new ModelAndView("auth/register");
+		mv.addObject("form", new UserRequest());
+		return mv;
+	}
+	
+	
+	@PostMapping("/register/admin")
+	public String registerAdmin(@Valid @ModelAttribute("form") UserRequest request,BindingResult result) {
+		if(result.hasErrors()) {
+			return "auth/register";
+		}
+		service.insert(request,true);
+		return "redirect:/products";
 	}
 }

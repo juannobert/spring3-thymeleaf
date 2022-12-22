@@ -29,9 +29,12 @@ public class UserService implements UserDetailsService{
 	private PasswordEncoder passwordEncoder;
 	
 
-	public User insert(UserRequest request) {
+	public User insert(UserRequest request,boolean isAdmin) {
 		User model = mapper.toModel(request);
+		
 		model.setUserType(UserType.CLIENT);
+		
+		if(isAdmin) model.setUserType(UserType.ADMIN);
 		
 		String password = request.getPassword();
 		model.setPassword(passwordEncoder.encode(password));

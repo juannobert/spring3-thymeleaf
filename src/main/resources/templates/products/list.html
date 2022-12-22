@@ -23,7 +23,7 @@
                     <div>
                         <a th:href="@{/products/insert}"  sec:authorize="hasAuthority('ADMIN')"  
                 	    class="btn btn-primary m-2">Cadastrar novo produto</a>
-                	    <a th:href="@{/products/insert}" sec:authorize="hasAuthority('ADMIN')"  
+                	    <a th:href="@{/auth/register/admin}" sec:authorize="hasAuthority('ADMIN')"  
                 	    class="btn btn-primary">Cadastrar novo administrador</a>
                     </div>           
             	</div>
