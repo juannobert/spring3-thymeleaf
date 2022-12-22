@@ -14,14 +14,19 @@
         <div th:if="${alert != null}" class="alert alert-dismissible fade show m-3" th:classappend="${alert.cssClass}">
             <span th:text="${alert.message}"></span>
         </div>
-
-        <div class="row mt-4" style="text-align: end;">
+        <div class="row mt-4 ">
             <div class="col-12">
-                <a th:href="@{/products/insert}" sec:authorize="hasAuthority('ADMIN')"  
-                class="btn btn-primary">Cadastrar novo produto</a>
-                <a th:href="@{/products/insert}" sec:authorize="hasAuthority('ADMIN')"  
-                class="btn btn-primary">Cadastrar novo administrador</a>
-                <span sec:authentication="name"></span>
+            	<div class="d-flex justify-content-between">
+                    <div>
+                        <span sec:authentication="name" class="text-muted">Teste@mail.com</span>
+                    </div>
+                    <div>
+                        <a th:href="@{/products/insert}"  sec:authorize="hasAuthority('ADMIN')"  
+                	    class="btn btn-primary m-2">Cadastrar novo produto</a>
+                	    <a th:href="@{/products/insert}" sec:authorize="hasAuthority('ADMIN')"  
+                	    class="btn btn-primary">Cadastrar novo administrador</a>
+                    </div>           
+            	</div>
             </div>
             
         </div>
