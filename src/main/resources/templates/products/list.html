@@ -17,8 +17,13 @@
 
         <div class="row mt-4" style="text-align: end;">
             <div class="col-12">
-                <a th:href="@{/products/insert}" class="btn btn-primary">Cadastrar novo produto</a>
+                <a th:href="@{/products/insert}" sec:authorize="hasAuthority('ADMIN')"  
+                class="btn btn-primary">Cadastrar novo produto</a>
+                <a th:href="@{/products/insert}" sec:authorize="hasAuthority('ADMIN')"  
+                class="btn btn-primary">Cadastrar novo administrador</a>
+                <span sec:authentication="name"></span>
             </div>
+            
         </div>
         <div class="row">
             <div class="col-12">
@@ -35,19 +40,25 @@
                             <td th:text="${product.name}" class="col-3"></td>
                             <td th:text="${product.price}" class="col-2"></td>
                             <td class="col-1">
-                                <a class="btn btn-warning">
+                                <a th:href="@{/products/details/{id} (id=${product.id})}"
+                                	
+                                	class="btn btn-warning">
                                     <i class="bi bi-info"></i>
                                     Detalhes
                                 </a>
                             </td>
                             <td class="col-1">
-                                <a th:href="@{/products/update/{id} (id=${product.id})}" class="btn btn-info">
+                                <a th:href="@{/products/update/{id} (id=${product.id})}" 
+                                	sec:authorize="hasAuthority('ADMIN')" 
+                                	class="btn btn-info">
                                     <i class="bi bi-person"></i>
                                     Alterar
                                 </a>
                             </td>
                             <td class="col-1">
-                                <a th:href="@{/products/delete/{id} (id=${product.id})}"class="btn btn-danger">
+                                <a th:href="@{/products/delete/{id} (id=${product.id})}"
+                                sec:authorize="hasAuthority('ADMIN')"  
+                                class="btn btn-danger">
                                     <i class="bi bi-trash"></i>
                                     Excluir
                                 </a>

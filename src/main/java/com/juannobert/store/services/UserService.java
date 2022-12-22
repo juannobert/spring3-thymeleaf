@@ -31,7 +31,7 @@ public class UserService implements UserDetailsService{
 
 	public User insert(UserRequest request) {
 		User model = mapper.toModel(request);
-		model.setUserType(UserType.ADMIN);
+		model.setUserType(UserType.CLIENT);
 		
 		String password = request.getPassword();
 		model.setPassword(passwordEncoder.encode(password));
@@ -50,8 +50,7 @@ public class UserService implements UserDetailsService{
 		Optional<User> user = repository.findByEmail(username);
 		if(user.isEmpty()) {
 			System.out.println("User email not found: " + username);
-			repository.findAll().forEach(System.out::println);
-			throw new UsernameNotFoundException("Not found");
+			throw new UsernameNotFoundException("User not found");
 		}
 		return user.get();
 	}

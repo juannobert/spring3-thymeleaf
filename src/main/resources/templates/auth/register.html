@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns:th="http://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -19,21 +19,34 @@
                         <input type="text" th:field="*{name}" id="name" class="form-control"
                         placeholder="Digite o seu nome">
                         <label for="name" class="form-label">Digite o seu nome</label>
+                        <ul>
+                    		<li class="text-danger" th:each="erro : ${#fields.errors('name')}" th:text="${erro}"></li>
+                   		</ul>
                     </div>
+                    
                     <div class="form-floating mb-3">
                         <input type="email" th:field="*{email}" id="email" class="form-control"
                         placeholder="Digite o seu email">
                         <label for="email" class="form-label">Digite o seu email</label>
+                        <ul>
+                    		<li class="text-danger" th:each="erro : ${#fields.errors('email')}" th:text="${erro}"></li>
+                   		</ul>
                     </div>
                     <div class="form-floating mb-3">
                         <input type="password" th:field="*{password}" id="password" class="form-control"
                         placeholder="Digite o seu nome">
                         <label for="password" class="form-label">Digite a sua senha</label>
+                        <ul>
+                    		<li class="text-danger" th:each="erro : ${#fields.errors('password')}" th:text="${erro}"></li>
+                   		</ul>
                     </div>
                     <div class="form-floating mb-3">
                         <input type="password" th:field="*{passwordConfirmation}" id="passwordConfimation" class="form-control"
                         placeholder="Digite o seu nome">
                         <label for="passwordConfimation" class="form-label">Digite novamente sua senha</label>
+                        <ul>
+                    		<li class="text-danger" th:each="erro : ${#fields.errors('passwordConfirmation')}" th:text="${erro}"></li>
+                   		</ul>
                     </div>
                     <div class="col-12">
                         <div class="form-check mb-2">

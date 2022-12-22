@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns:th="http://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -30,10 +30,10 @@
             </div>
             <div class="col-md-6 order-md-1">
                 <div class="col-12">
-                    <img th:src = "@{/store/src/main/resources/static/img/sign_in.svg}" alt="" class="img-fluid">
+                    <img alt="" class="img-fluid">
                 </div>
                 <div class="col-12" id="link-container">
-                    <a href="register.html">Ainda não tenho cadastro</a>
+                    <a th:href="@{/auth/register}">Ainda não tenho cadastro</a>
                 </div>
             </div>
         </div>

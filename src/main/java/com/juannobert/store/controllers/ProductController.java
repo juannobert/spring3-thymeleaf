@@ -78,5 +78,13 @@ public class ProductController {
 		return "redirect:/products";
 	}
 	
+	@GetMapping("/details/{id}")
+	public ModelAndView details(@PathVariable Long id) {
+		ModelAndView mv = new ModelAndView("products/details-product");
+		mv.addObject("form", service.findById(id));
+		
+		return mv;
+	}
+	
 	
 }

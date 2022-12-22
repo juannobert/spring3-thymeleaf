@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.juannobert.store.dtos.requests.UserRequest;
-import com.juannobert.store.models.User;
 import com.juannobert.store.services.UserService;
 
 import jakarta.validation.Valid;
@@ -40,8 +39,7 @@ public class AuthController {
 		if(result.hasErrors()) {
 			return "auth/register";
 		}
-		User user = service.insert(request);
-		System.out.println("User: " + user );
-		return "auth/login";
+		service.insert(request);
+		return "redirect:/auth/login";
 	}
 }
