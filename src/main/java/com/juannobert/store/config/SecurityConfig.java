@@ -1,6 +1,7 @@
 package com.juannobert.store.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -29,6 +30,14 @@ public class SecurityConfig {
 	
 	private final String[] ADMIN_OR_CLIENT = {"/products","/products/details/**"};
 	
+	@Value("${br.com.juannobert.store.rememberMe.validitySeconds}")
+	private Integer tokenValiditySeconds;
+	
+	@Value("${br.com.juannobert.store.rememberMe.rememberMeKey}")
+	private String rememberMeKey;
+	
+	
+	
 	@Bean
 	 AuthenticationManager authenticationManager(HttpSecurity http) 
 	  throws Exception {
@@ -55,6 +64,12 @@ public class SecurityConfig {
         	.passwordParameter("password")
         	.defaultSuccessUrl("/products",true)
         	.permitAll()
+        	
+        	.and()
+        	.rememberMe()
+        	.rememberMeParameter("remember-me")
+        	.tokenValiditySeconds(tokenValiditySeconds)
+        	.key(rememberMeKey)
         	
         	.and().csrf().disable();
             

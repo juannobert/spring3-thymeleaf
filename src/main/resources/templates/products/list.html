@@ -11,33 +11,16 @@
     <title>Listagem de Produtos</title>
 </head>
 <body class="bg-light">
-    <nav class="navbar navbar-expand-lg bg-secondary p-2" id="bottom-navbar-container">
-        <div class="container">
-            <a class="navbar-brand">
-                Store
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#bottom-navbar"
-                aria-controls="bottom-navbar" aria-expanded="false" aria-label="Toggle navigation">
-                <i class="bi bi-list"></i>
-            </button>
-            <ul class="navbar-nav mb-2 mb-lg-0 collapse navbar-collapse justify-content-end" id="bottom-navbar">
-                
-                <li class="nav-item">
-                    <a href="#" class="nav-link active">Produtos</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">Usuários</a>
-                </li>
-            </ul>
-        </div>
+    <nav th:insert="~{nav :: nav}">
     </nav>
     <div class="container">
         
         <div th:if="${alert != null}" class="alert alert-dismissible fade show m-3" th:classappend="${alert.cssClass}">
             <span th:text="${alert.message}"></span>
         </div>
-        
+
         <div class="row mt-4 ">
+            <h1>Listagens de Produtos</h1>
             <div class="col-12">
             	<div class="d-flex flex-wrap justify-content-between">
                     <div>
@@ -47,7 +30,7 @@
                         <a th:href="@{/products/insert}"  sec:authorize="hasAuthority('ADMIN')"  
                 	    class="btn btn-primary m-2">Cadastrar novo produto</a>
                 	    <a th:href="@{/auth/register/admin}" sec:authorize="hasAuthority('ADMIN')"  
-                	    class="btn btn-primary ">Cadastrar novo administrador</a>
+                	    class="btn btn-primary">Cadastrar novo administrador</a>
                     </div>           
             	</div>
             </div>
@@ -55,7 +38,7 @@
         </div>
         <div class="row">
             <div class="col-12">
-                <table class="table table-hover table-responsive">
+                <table class="table table-hover table-responsive-md">
                     <thead>
                         <th scope="col">ID</th>
                         <th scope="col">Nome</th>
@@ -64,31 +47,52 @@
                     </thead>
                     <tbody>
                         <tr th:each=" product: ${products}">
-                            <th th:text="${product.id}" class="col-1" scope="row"></th>
-                            <td th:text="${product.name}" class="col-3"></td>
-                            <td th:text="${product.price}" class="col-2"></td>
+                            <th th:text="${product.id}" class="col-1" scope="row">1</th>
+                            <td th:text="${product.name}" class="col-3">Computador</td>
+                            <td th:text="${product.price}" class="col-2">100.00</td>
                             <td class="col-1">
+
                                 <a th:href="@{/products/details/{id} (id=${product.id})}"
-                                	
-                                	class="btn btn-warning">
+                                	class="btn btn-warning d-none d-md-block">
                                     <i class="bi bi-info"></i>
                                     Detalhes
                                 </a>
+
+                                <a th:href="@{/products/details/{id} (id=${product.id})}"
+                                sec:authorize="hasAuthority('ADMIN')"  
+                                class="d-block d-md-none">
+                                    <i class="bi bi-info"></i>
+                                </a>
+                                
                             </td>
                             <td class="col-1">
+
                                 <a th:href="@{/products/update/{id} (id=${product.id})}" 
                                 	sec:authorize="hasAuthority('ADMIN')" 
-                                	class="btn btn-info">
+                                	class="btn btn-info d-none d-md-block">
                                     <i class="bi bi-person"></i>
                                     Alterar
                                 </a>
+
+                                <a th:href="@{/products/update/{id} (id=${product.id})}"
+                                sec:authorize="hasAuthority('ADMIN')"  
+                                class="d-block d-md-none">
+                                    <i class="bi bi-person"></i>
+                                </a>
                             </td>
                             <td class="col-1">
+
                                 <a th:href="@{/products/delete/{id} (id=${product.id})}"
                                 sec:authorize="hasAuthority('ADMIN')"  
-                                class="btn btn-danger">
+                                class="btn btn-danger d-none d-md-block">
                                     <i class="bi bi-trash"></i>
                                     Excluir
+                                </a>
+
+                                <a th:href="@{/products/delete/{id} (id=${product.id})}"
+                                sec:authorize="hasAuthority('ADMIN')"  
+                                class="d-block d-md-none">
+                                    <i class="bi bi-trash"></i>
                                 </a>
                             </td>
                         </tr>
